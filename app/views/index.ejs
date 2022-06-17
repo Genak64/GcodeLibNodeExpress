@@ -11,7 +11,7 @@
       html, pre {
         font-family: sans-serif;
       }
-
+/*
       body {
         width: 500px;
         margin: 0 auto;
@@ -34,7 +34,7 @@
         width: 350px;
         padding: 5px;
       }
-
+*/
     </style>
 	<!--[if lt IE 9]>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
@@ -63,9 +63,18 @@
     <pre>
 
     </pre>
-		
+
+	<canvas id="canv" width="500" height="500" > </canvas>
+	
 	<%- include("partials/footer.ejs") %>
 	
+	<script  src="javascripts/gcodeFile.js"></script>
+	<script  src="javascripts/gcodeParser.js"></script>
+	<script  src="javascripts/gParser.js"></script>
+	<script  src="javascripts/drawToViewPort.js"></script>
+	<script  src="javascripts/transformShape.js"></script>
+	<script  src="javascripts/main.js"></script>
+		
 	<script>
 
 	var verseChoose = document.querySelector('select');
@@ -74,13 +83,22 @@
 	verseChoose.onchange = function() {
 		var verse = verseChoose.value;
 		updateDisplay(verse);
+		
+		
+		var orig=gcodeToShape.getShape(gcodeFile);
+/*
+oksp=transformShape.dublicate(orig,8,7,10);
+drawing.setView(1000,800);
+drawing.paint(oksp,'canv');
+*/
+
 	};
 	
 	function updateDisplay(verse) {
 		
 		verse = verse.replace(" ", "");
 		verse = verse.toLowerCase();
-		var url = verse + '.txt';
+		var url = 'files/'+verse + '.txt';
 	/*
 		var request = new XMLHttpRequest();
 	
