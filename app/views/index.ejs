@@ -63,19 +63,72 @@
     <pre>
 
     </pre>
+ 
 
+	<form action="/upload" method="post" enctype="multipart/form-data">	
+		<input type="file" name="filedata" id="file" onchange="uploadFile(this.files[0])"/>
+	</form>
+	
 	<canvas id="canv" width="500" height="500" > </canvas>
 	
 	<%- include("partials/footer.ejs") %>
 	
-	<script  src="javascripts/gcodeFile.js"></script>
-	<script  src="javascripts/gcodeParser.js"></script>
-	<script  src="javascripts/gParser.js"></script>
+	
+	
+
 	<script  src="javascripts/drawToViewPort.js"></script>
 	<script  src="javascripts/transformShape.js"></script>
 	<script  src="javascripts/main.js"></script>
 		
 	<script>
+	
+	
+var file = document.querySelector('#file');
+var upload = document.querySelector('#upload');
+var xhr = new XMLHttpRequest();
+ 
+ 
+// Нажмите, чтобы загрузить
+function uploadFile(file) {
+  var formData = new FormData();
+  formData.append('filedata', file);
+  xhr.onload = uploadSuccess;
+  xhr.open('post', '/upload', true);
+  xhr.send(formData);
+};
+ 
+// отслеживаем процесс отправки
+  xhr.upload.onprogress = function(event) {
+    console.log(`Отправлено ${event.loaded} из ${event.total}`);
+  }; 
+ 
+// Успешно загружено
+function uploadSuccess(event) {
+//  if (xhr.readyState === 4) {
+//    console.log(xhr.responseText);
+//  };
+  
+  
+  if (xhr.status == 200) {
+      console.log("Успех");
+//	  console.log(xhr.responseText);
+	  
+//	  alert("файл загружен")
+	  
+	  var orig=JSON.parse(xhr.responseText);
+//	  console.log(orig);
+		//	console.log(updateBorderShape(orig));
+		//	oksp=transformShape.dublicate(orig,2,2,10);
+		//	drawing.setView(1000,800);
+			drawing.paint(updateBorderShape(orig),'canv');
+		//	drawing.paint(orig,'canv');
+	  
+	  
+	  };
+};
+	
+
+
 
 	var verseChoose = document.querySelector('select');
 	var poemDisplay = document.querySelector('pre');
@@ -118,11 +171,13 @@ drawing.paint(oksp,'canv');
 				});
 			});
 		
+		
 	};
 	
 	updateDisplay('Verse 1');
 	verseChoose.value = 'Verse 1';
 	
+//	canvasDisplay();
     </script>
 	
   </body>

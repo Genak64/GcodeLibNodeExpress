@@ -178,7 +178,9 @@ const transformShape=(function (){
 	function createShapeDublicate(shapeOriginal,numberOfCopyX,numberOfCopyY,offset){
 		
 		var shape;
-		
+		if (numberOfCopyX>1&&numberOfCopyY<2) {
+			shape=dublicateShapeFromX(shapeOriginal,numberOfCopyX,offset);
+		}
 		if (numberOfCopyX<2&&numberOfCopyY>2) {
 			shape=dublicateShapeFromY(shapeOriginal,numberOfCopyY,offset);
 			
@@ -186,9 +188,7 @@ const transformShape=(function (){
 			shape=dublicateShapeFromX(shapeOriginal,numberOfCopyX,offset);
 			shape=dublicateShapeFromY(shape,numberOfCopyY,offset);
 		}
-		if (numberOfCopyX>1&&numberOfCopyY<2) {
-			shape=dublicateShapeFromX(shapeOriginal,numberOfCopyX,offset);
-		}
+		
 		return shape;
 	}
 

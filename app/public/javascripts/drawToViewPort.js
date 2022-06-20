@@ -32,7 +32,7 @@ const drawing=(function (){
 	function drawShape(shape,canvasName){
 		var scale=setScale(width,height,shape.maxX,shape.maxY);
 		var ctx=init(canvasName);
-	
+//	console.log(shape);
 			if (canvas.getContext){
 			   ctx = canvas.getContext('2d');
 			for (namePath in shape){
