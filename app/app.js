@@ -6,6 +6,8 @@ var logger = require('morgan');
 var multer  = require("multer");
 
 var indexRouter = require('./routes/index');
+var collectionRouter = require('./routes/collection');
+var contactRouter = require('./routes/contact');
 var usersRouter = require('./routes/users');
 var canvasRouter = require('./routes/canvas');
 var uploadRouter = require('./routes/upload');
@@ -25,6 +27,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/collection', collectionRouter);
+app.use('/contact', contactRouter);
 app.use('/users', usersRouter);
 app.use('/canvas', canvasRouter);
 app.post('/upload', uploadRouter);

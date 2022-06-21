@@ -6,12 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 	
 	<style>
+/*
       html, pre {
         font-family: sans-serif;
       }
-/*
+
       body {
         width: 500px;
         margin: 0 auto;
@@ -35,53 +37,74 @@
         padding: 5px;
       }
 */
+
+
     </style>
-	<!--[if lt IE 9]>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
-    <![endif]-->
+
   </head>
   <body>
+  <div class="container mx-auto" style="width: 900px;">
   <%- include("partials/menu.ejs") %>
   
     <h1><%= title %></h1>
-    <p>Wery Welcome to <%= title %></p>
+    <p>Добро пожаловать на страницу <%= title %>, визуализатор программ для лазерных станков написанных с использованием g-code.</p>
+	<div class="container">
+		<div class="row g-3 justify-content-around">
+			<div class="col justify-content-center">
+				<img src="files/pic-gcode.svg" />
+			</div>
+			<div class="col  align-self-center justify-content-center">
+				<div class="p-2 border bg-light">
+				<p>Для визуализации и просмотра в браузере, загрузите файл программы на сервер. Файл должен содержать корректную g-code программу и иметь расширение "nc".</p>
+				</div>
+			</div>
+			<div class="col justify-content-center">
+				<img src="files/pic-draw.svg" />
+			</div>
+			<div class="col align-self-center justify-content-end">
+				<div class="p-2 border bg-light">
+				<p>Для визуализации и просмотра в браузере, загрузите файл программы на сервер. Файл должен содержать корректную g-code программу и иметь расширение "nc".</p>
+				</div>
+			</div>
+		</div>
+	</div>
 	
-	<h1>Fetch starting point</h1>
-
-    <form>
-      <label for="verse-choose">Choose a verse</label>
-      <select id="verse-choose" name="verse-choose">
-        <option>Verse 1</option>
-        <option>Verse 2</option>
-        <option>Verse 3</option>
-        <option>Verse 4</option>
-      </select>
-    </form>
-
-    <h2>The Conqueror Worm, <em>Edgar Allen Poe, 1843</em></h2>
-
-    <pre>
-
-    </pre>
- 
-
-	<form action="/upload" method="post" enctype="multipart/form-data">	
-		<input type="file" name="filedata" id="file" onchange="uploadFile(this.files[0])"/>
-	</form>
 	
 	<canvas id="canv" width="500" height="500" > </canvas>
+	<br>
+	<form action="/upload" method="post" enctype="multipart/form-data">	
+		<input class="form-control" type="file" name="filedata" id="file" onchange="uploadFile(this.files[0])"/>
+	</form>
+	
+	<br>
+	
+	<div class="container">
+		<div class="row p-3">
+			<div class="p-3 border bg-light">
+			<p>В будущем планируется добавление дополнительных возможностей:</p>
+			<ul>
+			<li>- масштабирование окна canvas под ширину браузера.</li>
+			<li>- создание массивов и загрузка результата пользователю.</li>
+			<li>- создание сохраненных коллекций на сервере.</li>
+			<li>- авторизация пользователя.</li>
+			</ul>
+			</div>
+		</div>
+	</div>
+	
+	<br>
 	
 	<%- include("partials/footer.ejs") %>
+	</div>
 	
-	
-	
-
 	<script  src="javascripts/drawToViewPort.js"></script>
 	<script  src="javascripts/transformShape.js"></script>
 	<script  src="javascripts/main.js"></script>
-		
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>	
 	<script>
-	
+
+var canvas = document.querySelector('#canv');	
+	canvas.style.display="none";
 	
 var file = document.querySelector('#file');
 var upload = document.querySelector('#upload');
@@ -121,12 +144,36 @@ function uploadSuccess(event) {
 		//	oksp=transformShape.dublicate(orig,2,2,10);
 		//	drawing.setView(1000,800);
 			drawing.paint(updateBorderShape(orig),'canv');
+			canvas.style.display="block";
 		//	drawing.paint(orig,'canv');
 	  
 	  
 	  };
 };
 	
+
+
+/*
+		
+	<h1>Fetch starting point</h1>
+ 
+    <form>
+      <label for="verse-choose">Choose a verse</label>
+      <select id="verse-choose" name="verse-choose">
+        <option>Verse 1</option>
+        <option>Verse 2</option>
+        <option>Verse 3</option>
+        <option>Verse 4</option>
+      </select>
+    </form>
+	
+
+    <h2>The Conqueror Worm, <em>Edgar Allen Poe, 1843</em></h2>
+
+    <pre>
+
+    </pre>
+ 
 
 
 
@@ -136,15 +183,6 @@ function uploadSuccess(event) {
 	verseChoose.onchange = function() {
 		var verse = verseChoose.value;
 		updateDisplay(verse);
-		
-/*		
-		var orig=gcodeToShape.getShape(gcodeFile);
-
-oksp=transformShape.dublicate(orig,8,7,10);
-drawing.setView(1000,800);
-drawing.paint(oksp,'canv');
-*/
-
 	};
 	
 	function updateDisplay(verse) {
@@ -152,18 +190,18 @@ drawing.paint(oksp,'canv');
 		verse = verse.replace(" ", "");
 		verse = verse.toLowerCase();
 		var url = 'files/'+verse + '.txt';
-	/*
-		var request = new XMLHttpRequest();
 	
-		request.open('GET', url);
-		request.responseType = 'text';
+	//	var request = new XMLHttpRequest();
+	
+	//	request.open('GET', url);
+	//	request.responseType = 'text';
 		
-		request.onload = function() {
-			poemDisplay.textContent = request.response;
-		};
+	//	request.onload = function() {
+	//		poemDisplay.textContent = request.response;
+	//	};
 		
-		request.send();
-		*/
+	//	request.send();
+		
 		
 		fetch(url).then(function(response) {
 			response.text().then(function(text) {
@@ -176,6 +214,7 @@ drawing.paint(oksp,'canv');
 	
 	updateDisplay('Verse 1');
 	verseChoose.value = 'Verse 1';
+*/
 	
 //	canvasDisplay();
     </script>

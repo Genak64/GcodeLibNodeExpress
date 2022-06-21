@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'G-code viewer' });
+  res.render('collection', { title: 'G-code viewer' });
 });
 
 module.exports = router;
