@@ -1,5 +1,6 @@
-
-
+/*
+Parsing parts cadr g-code programm
+*/
 	
 	function parseXY (item){
 	var point={};

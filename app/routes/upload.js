@@ -5,8 +5,8 @@ var multer  = require("multer");
 
 const upload = multer({dest:"uploads"});
 
-var sp = require('../js/gcodeToShapeModule.js');
-
+var sp = require('../js/gcodeToShape.js');
+ 
 
 router.post("/upload", upload.single("filedata"), function (req, res, next) {
    

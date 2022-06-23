@@ -1,4 +1,5 @@
 const parser = require('../js/ParserGcodeCadr.js');
+const border = require('../js/updateBorderShape.js');
 
 	var minX=0;
 	var minY=0;
@@ -7,13 +8,8 @@ const parser = require('../js/ParserGcodeCadr.js');
 	
 
 //Converting g-code and getting shape 
-
-
-<<<<<<< Updated upstream
-//Converting g-code and getting shape 
 //	items - string array	
-=======
->>>>>>> Stashed changes
+
 module.exports.getShape = function (items){
 
 	var shape=[];
@@ -109,36 +105,5 @@ module.exports.getShape = function (items){
 	
 	}
 	
-	for(path in shape){
-		for(points in path){
-			for (p in shape[path].points){
-				
-				if (minX>shape[path].points[p].x){
-					minX=shape[path].points[p].x
-					}
-				if (minY>shape[path].points[p].y){
-					minY=shape[path].points[p].y
-					}
-				if (maxX<shape[path].points[p].x){
-					maxX=shape[path].points[p].x
-					}
-				if (maxY<shape[path].points[p].y){
-					maxY=shape[path].points[p].y
-					}
-			}
-		}
-	}
-	
-	shape.minX=minX;
-	shape.minY=minY;
-	shape.maxX=maxX;
-	shape.maxY=maxY;
-	shape.width=Math.abs(maxY)-Math.abs(minY);
-	shape.height=Math.abs(maxX)-Math.abs(minX);
-	
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
-	return shape;
+	return border.updateBorderShape(shape);
 }
