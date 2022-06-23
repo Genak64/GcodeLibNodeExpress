@@ -34,7 +34,7 @@
 	}
 
 //Converting g-code and getting shape 
-	
+//	items - string array	
 module.exports.getShape = function (items){
 
 	var shape=[];
@@ -157,7 +157,6 @@ module.exports.getShape = function (items){
 	shape.width=Math.abs(maxY)-Math.abs(minY);
 	shape.height=Math.abs(maxX)-Math.abs(minX);
 	
-//	console.log(shape);
 	return shape;
 }
 
