@@ -1,40 +1,19 @@
+const parser = require('../js/ParserGcodeCadr.js');
 
 	var minX=0;
 	var minY=0;
 	var maxX=0;
 	var maxY=0;
 	
-	
-	function parseXY (item){
-	var point={};
-	item=item.toUpperCase();
-	point.x=parseFloat(parseX(item));
-	point.y=parseFloat(parseY(item));
-	return point;
-	}
-
-	function parseS (item){
-	item=item.toUpperCase();
-	return parseFloat(item.slice(item.indexOf("S")+1).replace(/[,]+/g, '.')).toFixed(2);
-	}
-
-	function parseF (item){
-	item=item.toUpperCase();
-	return parseFloat(item.slice(item.indexOf("F")+1).replace(/[,]+/g, '.')).toFixed(2);
-	}
-
-	function parseX (item){
-	item=item.toUpperCase();
-	return parseFloat(item.slice(item.indexOf("X")+1).replace(/[,]+/g, '.')).toFixed(2);
-	}
-
-	function parseY (item){
-	item=item.toUpperCase();
-	return parseFloat(item.slice(item.indexOf("Y")+1).replace(/[,]+/g, '.')).toFixed(2);
-	}
 
 //Converting g-code and getting shape 
+
+
+<<<<<<< Updated upstream
+//Converting g-code and getting shape 
 //	items - string array	
+=======
+>>>>>>> Stashed changes
 module.exports.getShape = function (items){
 
 	var shape=[];
@@ -66,27 +45,27 @@ module.exports.getShape = function (items){
 				points:[]
 			};
 			point = {};
-			point=parseXY(items[i]);
+			point=parser.parseXY(items[i]);
 			path.points.push(point);
 			currentPoint=point;
 			continue;
 		}
 		if ((items[i].indexOf("M4")!=-1||items[i].indexOf("M3")!=-1)&&pathCreated){
 			RedyToAddPoint=true;
-			path.power=parseS(items[i]);
+			path.power=parser.parseS(items[i]);
 			continue;
 		}
 		if (items[i].indexOf("G1")!=-1&&pathCreated){
-			path.speed=parseF(items[i]);
+			path.speed=parser.parseF(items[i]);
 			
 			if (items[i].indexOf("X")!=-1&&items[i].indexOf("Y")!=-1&&RedyToAddPoint){
-				point=parseXY(items[i]);
+				point=parser.parseXY(items[i]);
 				path.points.push(point);
 				currentPoint=point;
 			} else {
 				if (items[i].indexOf("X")!=-1) {
 					point = {};
-					point.x=parseFloat(parseX(items[i]));
+					point.x=parseFloat(parser.parseX(items[i]));
 					point.y=parseFloat(currentPoint.y);
 					path.points.push(point);
 					currentPoint=point;
@@ -94,7 +73,7 @@ module.exports.getShape = function (items){
 				} 
 				if (items[i].indexOf("Y")!=-1) {
 					point = {};
-					point.y=parseFloat(parseY(items[i]));
+					point.y=parseFloat(parser.parseY(items[i]));
 					point.x=parseFloat(currentPoint.x);
 					path.points.push(point);
 					currentPoint=point;
@@ -105,13 +84,13 @@ module.exports.getShape = function (items){
 		}
 		if (items[i].indexOf("X")!=-1&&items[i].indexOf("Y")!=-1&&RedyToAddPoint){
 			point = {};
-			point=parseXY(items[i]);
+			point=parser.parseXY(items[i]);
 			path.points.push(point);
 			currentPoint=point;
 		} else {
 			if (items[i].indexOf("X")!=-1) {
 				point = {};
-				point.x=parseFloat(parseX(items[i]));
+				point.x=parseFloat(parser.parseX(items[i]));
 				point.y=parseFloat(currentPoint.y);
 				path.points.push(point);
 				currentPoint=point;
@@ -120,7 +99,7 @@ module.exports.getShape = function (items){
 			if (items[i].indexOf("Y")!=-1) {
 				point = {};
 				point.x=parseFloat(currentPoint.x);
-				point.y=parseFloat(parseY(items[i]));
+				point.y=parseFloat(parser.parseY(items[i]));
 				path.points.push(point);
 				currentPoint=point;
 				continue
@@ -157,6 +136,9 @@ module.exports.getShape = function (items){
 	shape.width=Math.abs(maxY)-Math.abs(minY);
 	shape.height=Math.abs(maxX)-Math.abs(minX);
 	
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 	return shape;
 }
-
