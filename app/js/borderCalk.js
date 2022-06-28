@@ -10,19 +10,19 @@ function getMinY(minY,y){
 }
 
 function getMaxX(maxX,x){
-	return maxX>x?x:maxX;
+	return maxX<x?x:maxX;
 }
 
 function getMaxY(maxY,y){
-	return maxY>y?y:maxY;
+	return maxY<y?y:maxY;
 }
 
 function getHeight(maxY,minY){
-	return Math.abs(maxY)-Math.abs(minY);
+	return Math.abs(maxY-minY);
 }
 
 function getWidth(maxX,minX){
-	return Math.abs(maxX)-Math.abs(minX);
+	return Math.abs(maxX-minX);
 }
 
 module.exports={getMinX,getMinY,getMaxX,getMaxY,getHeight,getWidth};
