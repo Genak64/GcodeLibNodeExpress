@@ -39,27 +39,27 @@ const drawing=(function (){
 				if (namePath!="maxX"&&namePath!="maxY"&&namePath!="minX"&&namePath!="minY"&&namePath!="width"&&namePath!="height"){
 				var path=shape[namePath];
 				
-				drawPath(path,ctx,(shape.maxY+shape.minY),scale);
+				drawPath(path,ctx,(shape.maxY+shape.minY),scale,height);
 				}
 			}
 		}
 	}
 	
 	
-	function drawPath(path,ctx,offsetY,scale){
+	function drawPath(path,ctx,offsetY,scale,height){
 		
      		var x=parseFloat(path.points[0].x)/parseFloat(scale);
-			var y=parseFloat(path.points[0].y)/parseFloat(scale)+parseFloat(height-offsetY/scale);  
+			var y=parseFloat(path.points[0].y)/parseFloat(scale)-parseFloat(height);  
 		
 			ctx.beginPath();
 			
-			ctx.moveTo(x,y);
+			ctx.moveTo(x,-y);
 			
-			for(i=1; i<path.points.length;i++){
+			for(i=0; i<path.points.length;i++){
 				var x=parseFloat(path.points[i].x)/parseFloat(scale);
-				var y=parseFloat(path.points[i].y)/parseFloat(scale)+parseFloat(height-offsetY/scale);
+				var y=parseFloat(path.points[i].y)/parseFloat(scale)-parseFloat(height);
 				
-				ctx.lineTo(x,y);
+				ctx.lineTo(x,-y);
 			}
 			ctx.closePath();
 			ctx.strokeStyle=strokeColor;

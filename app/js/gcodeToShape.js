@@ -25,15 +25,20 @@ module.exports.getShape = function (items){
 	
 	for(i=0; i<items.length;i++){
 		
-		if (items[i].indexOf("M5")!=-1&&pathCreated){
+		if (items[i].toUpperCase().indexOf("M5")!=-1/*&&pathCreated*/){
+			/*
+			shape.push(path);
+			pathCreated=false;
+			*/
 			
 			if (pathCreated){
 				shape.push(path);
 				pathCreated=false;
 			}
+			
 			continue;
 		}
-		if (items[i].indexOf("G0")!=-1&&!pathCreated){
+		if (items[i].toUpperCase().indexOf("G0")!=-1/*&&!pathCreated*/){
 			pathCreated=true;
 			path={
 				points:[]
@@ -42,12 +47,12 @@ module.exports.getShape = function (items){
 			currentPoint=parser.getPointToCadrXandY(items[i],currentPoint);
 			continue;
 		}
-		if ((items[i].indexOf("M4")!=-1||items[i].indexOf("M3")!=-1)&&pathCreated){
+		if ((items[i].toUpperCase().indexOf("M4")!=-1||items[i].toUpperCase().indexOf("M3")!=-1)&&pathCreated){
 			ReadyToAddPoint=true;
 			path.power=parser.parseS(items[i]);
 			continue;
 		}
-		if (items[i].indexOf("G1")!=-1&&pathCreated){
+		if (items[i].toUpperCase().indexOf("G1")!=-1&&pathCreated){
 			path.speed=parser.parseF(items[i]);
 			path=parser.getPathPointXY(path,items[i],currentPoint,ReadyToAddPoint);
 			currentPoint=parser.getCurrentPointXY(path,items[i],currentPoint,ReadyToAddPoint);

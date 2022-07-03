@@ -70,5 +70,66 @@ describe('Test parseY(cadr)', ()=>{
 });
 
 
+describe('Test parseS(cadr)', ()=>{
+	
+	cadr1='M4 S110';
+	
+	it('(Cadr='+cadr1+') get '+parser.parseS(cadr1), () => {
+	  assert.equal(parser.parseS(cadr1), 110);
+	});
+
+	cadr1='M4 S 110';
+	
+	it('(Cadr='+cadr1+') get '+parser.parseS(cadr1), () => {
+	  assert.equal(parser.parseS(cadr1), 110);
+	});
+
+	cadr1='M4S110';
+	
+	it('(Cadr='+cadr1+') get '+parser.parseS(cadr1), () => {
+	  assert.equal(parser.parseS(cadr1), 110);
+	});
+
+    cadr1='M4 S110.00';
+	
+	it('(Cadr='+cadr1+') get '+parser.parseS(cadr1), () => {
+	  assert.equal(parser.parseS(cadr1), 110);
+	});
+
+	cadr1='M4 S110,00';
+	
+	it('(Cadr='+cadr1+') get '+parser.parseS(cadr1), () => {
+	  assert.equal(parser.parseS(cadr1), 110);
+	});	
+
+	
+});
 
 
+describe('Test parseF(cadr)', ()=>{
+	
+	cadrF='G1X65.59Y50.48F10000';
+	
+	it('(Cadr='+cadrF+') get '+parser.parseF(cadrF), () => {
+	  assert.equal(parser.parseF(cadrF), 10000);
+	});
+	
+	cadrF='G1X65.59Y50.48F10000.00';
+	
+	it('(Cadr='+cadrF+') get '+parser.parseF(cadrF), () => {
+	  assert.equal(parser.parseF(cadrF), 10000);
+	});
+	
+	cadrF='G1X65.59Y50.48F10000,00';
+	
+	it('(Cadr='+cadrF+') get '+parser.parseF(cadrF), () => {
+	  assert.equal(parser.parseF(cadrF), 10000);
+	});
+	
+	cadrF='G1 X65.59 Y50.48 F 10000';
+	
+	it('(Cadr='+cadrF+') get '+parser.parseF(cadrF), () => {
+	  assert.equal(parser.parseF(cadrF), 10000);
+	});
+
+});
