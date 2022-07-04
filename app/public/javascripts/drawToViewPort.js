@@ -61,7 +61,7 @@ const drawing=(function (){
 				
 				ctx.lineTo(x,-y);
 			}
-			ctx.closePath();
+//			ctx.closePath();
 			ctx.strokeStyle=strokeColor;
 			ctx.stroke();
     }
