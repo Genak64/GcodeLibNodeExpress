@@ -1,19 +1,6 @@
 
 //console.log(gcodeToShape.getShape(gcodeFile));
 
-var x1=0;
-var y1=0;
-var x2=2;
-var y2=2;
-
-var len=Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
-
-console.log(Math.pow(x2-x1,2));
-console.log(Math.pow(y2-y1,2));
-console.log(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
-
-console.log(len);
-
 
 /*
 var doc=document.querySelector('canvas');

@@ -1,6 +1,7 @@
 const parser = require('../js/ParserGcodeCadr.js');
 const border = require('../js/updateBorderShape.js');
 const startEnd = require('../js/updateStartEndPointShape.js');
+const pathLen = require('../js/addPathLength.js');
 
 	var minX=1;
 	var minY=1;
@@ -79,6 +80,8 @@ module.exports.getShape = function (items){
 	shape=startEnd.addStartEndPoint(shape);
 	//added border to shape
 	shape=border.updateBorderShape(shape);
+	
+	shape=pathLen.addLengthPath(shape);
 	
 	return shape;
 }

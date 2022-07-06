@@ -110,11 +110,61 @@ function uploadSuccess(event) {
 			drawing.paint(updateBorderShape(orig),'canv');
 			canvas.style.display="block";
 		//	drawing.paint(orig,'canv');
-	  
+		
+		ShowLengthAllPath(orig);
+		ShowLengthSpecPath(orig);
 	  
 	  };
 };
 	
+function ShowLengthAllPath(shape){
+	
+	var len=0;
+	
+		for(path in shape){
+		
+			if (Number.isInteger(parseInt(path))) {
+
+				len=len+shape[path].pathLength;
+			}
+		}
+
+	console.log("Общая длина ",len);
+	};
+
+function ShowLengthSpecPath(shape){
+	
+	var len=[];
+	
+		for(path in shape){
+		
+			if (Number.isInteger(parseInt(path))) {
+				if (len.length==0) {
+				len.push({power:shape[path].power,speed:shape[path].speed, pathLength:shape[path].pathLength});
+				continue;
+				} 
+				
+					for (var i=0;i<len.length;i++){
+						if (len[i].power==shape[path].power&&len[i].speed==shape[path].speed) {
+							len[i].pathLength=len[i].pathLength+shape[path].pathLength;
+						//	break;
+						} else {
+							len.push({power:shape[path].power,speed:shape[path].speed, pathLength:shape[path].pathLength});
+						//	break;
+							
+						}
+					
+				
+					}
+			
+				
+			//	len=len+shape[path].pathLength;
+			}
+		}
+
+	console.log(" длина ",len);
+	};
+
 
 
 /*
