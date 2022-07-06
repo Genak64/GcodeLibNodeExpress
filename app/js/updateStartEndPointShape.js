@@ -1,5 +1,5 @@
 
-function updateStartEndPoint(shape){
+function addStartEndPoint(shape){
 	
 		for(path in shape){
 		
@@ -14,4 +14,4 @@ function updateStartEndPoint(shape){
 		return shape;
 	}
 
-module.exports={updateStartEndPoint};
+module.exports={addStartEndPoint};

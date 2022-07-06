@@ -46,7 +46,7 @@ module.exports.getShape = function (items){
 			path={
 				points:[]
 			};
-		//	currentPoint={x:0,y:0};
+		
 			path.points.push(parser.getPointToCadrXandY(items[i],currentPoint));
 			currentPoint=parser.getPointToCadrXandY(items[i],currentPoint);
 			continue;
@@ -74,7 +74,11 @@ module.exports.getShape = function (items){
 		currentPoint=parser.getCurrentPointXY(path,items[i],currentPoint,ReadyToAddPoint);
 		}
 	}
-//	shape=startEnd.updateStartEndPoint(shape);
 	
-	return border.updateBorderShape(startEnd.updateStartEndPoint(shape));
+	//added to paths start and end points
+	shape=startEnd.addStartEndPoint(shape);
+	//added border to shape
+	shape=border.updateBorderShape(shape);
+	
+	return shape;
 }
