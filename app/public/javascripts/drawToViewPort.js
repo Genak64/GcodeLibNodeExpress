@@ -1,5 +1,5 @@
 const drawing=(function (){
-	var width=600;
+	var width=400;
 	var height=400;
 	var strokeColor="blue";
 	var canvas;

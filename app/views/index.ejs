@@ -32,12 +32,23 @@
 		</div>
 	</div>
 	
+	<div class="container">
+		<div class="row g-3 justify-content-around">
+				<div class="col">
+					<canvas id="canv" width="400" height="400" > </canvas>
+				</div>
+				
+				<div class="col align-self-center">
+					<div id="property" class="border bg-light"></div>
+				</div>
+			</div>		
+	</div>
 	
-	<canvas id="canv" width="500" height="500" > </canvas>
 	<br>
 	<form action="/upload" method="post" enctype="multipart/form-data">	
 		<input class="form-control" type="file" name="filedata" id="file" onchange="uploadFile(this.files[0])"/>
 	</form>
+	
 	
 	<br>
 	
@@ -68,6 +79,9 @@
 
 var canvas = document.querySelector('#canv');	
 	canvas.style.display="none";
+
+var property = document.querySelector('#property');
+	property.style.display="none";
 	
 var file = document.querySelector('#file');
 var upload = document.querySelector('#upload');
@@ -109,11 +123,29 @@ function uploadSuccess(event) {
 		console.log(orig);
 			drawing.paint(updateBorderShape(orig),'canv');
 			canvas.style.display="block";
+			
+			
+			
 		//	drawing.paint(orig,'canv');
 		
 		ShowLengthAllPath(orig);
-		ShowLengthSpecPath(orig);
-	  
+var lengthPaths=ShowLengthSpecPath(orig);
+		
+		property.innerHTML="<p>Общая длина реза: "+ShowLengthAllPath(orig).toFixed(2)+" mm</p>";
+		property.innerHTML+="<p>";
+		for (index in lengthPaths){
+		
+		property.innerHTML+="Длина реза "+lengthPaths[index].pathLength.toFixed(2)+" mm <br>мощность "+lengthPaths[index].power/10+" %<br>скорость подачи "+lengthPaths[index].speed+" mm/min<br>время "+((lengthPaths[index].pathLength*60)/lengthPaths[index].speed).toFixed(2)+" sec<br><br>";
+		}
+		var allTime=0;
+		for (index in lengthPaths){
+		allTime=parseFloat(allTime)+parseFloat(parseFloat(lengthPaths[index].pathLength*60)/parseFloat(lengthPaths[index].speed));
+		}
+		property.innerHTML+="Общее время реза "+allTime.toFixed(2)+" sec<br>";
+		property.innerHTML+="</p>";
+		
+		property.style.display="block";
+		//getPathListUniq(orig);
 	  };
 };
 	
@@ -128,44 +160,63 @@ function ShowLengthAllPath(shape){
 				len=len+shape[path].pathLength;
 			}
 		}
-
-	console.log("Общая длина ",len);
+	return len;
 	};
 
 function ShowLengthSpecPath(shape){
 	
 	var len=[];
+	var uniq=[];
 	
+	uniq=getPathListUniq(shape);
+	
+	for (index in uniq) {
+	len.push({power:uniq[index].power,speed:uniq[index].speed, pathLength:0});
 		for(path in shape){
 		
 			if (Number.isInteger(parseInt(path))) {
-				if (len.length==0) {
-				len.push({power:shape[path].power,speed:shape[path].speed, pathLength:shape[path].pathLength});
-				continue;
-				} 
-				
-					for (var i=0;i<len.length;i++){
-						if (len[i].power==shape[path].power&&len[i].speed==shape[path].speed) {
-							len[i].pathLength=len[i].pathLength+shape[path].pathLength;
-						//	break;
-						} else {
-							len.push({power:shape[path].power,speed:shape[path].speed, pathLength:shape[path].pathLength});
-						//	break;
-							
-						}
-					
-				
-					}
-			
-				
-			//	len=len+shape[path].pathLength;
+				if (len[index].power==shape[path].power&&len[index].speed==shape[path].speed) {
+					len[index].pathLength=len[index].pathLength+shape[path].pathLength;
+				}
 			}
 		}
+	}
 
-	console.log(" длина ",len);
+//	console.log(" длина ",len);
+	return len;
 	};
 
 
+	function getPathListUniq (shape){
+	
+		var len=[];
+		
+		for(path in shape){
+			if (Number.isInteger(parseInt(path))) {
+			
+				if (verifyPathToEnterArray(shape[path],len)) {
+				 continue;
+				} else {
+				 len.push({power:shape[path].power,speed:shape[path].speed});
+				};
+			}
+		}
+//	console.log(len);
+	return len;
+	
+	};
+	
+	function verifyPathToEnterArray (path, arr){
+		
+		for (element in arr){
+			
+			if (arr[element].power==path.power&&arr[element].speed==path.speed) {
+			 return true;
+			}
+		}
+		return false;
+	};
+	
 
 /*
 		
