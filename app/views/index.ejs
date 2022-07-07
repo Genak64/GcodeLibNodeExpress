@@ -39,7 +39,7 @@
 				</div>
 				
 				<div class="col align-self-center">
-					<div id="property" class="border bg-light"></div>
+					<div id="property" class="p-2 border bg-light"></div>
 				</div>
 			</div>		
 	</div>
@@ -133,19 +133,20 @@ var lengthPaths=ShowLengthSpecPath(orig);
 		
 		property.innerHTML="<p>Общая длина реза: "+ShowLengthAllPath(orig).toFixed(2)+" mm</p>";
 		property.innerHTML+="<p>";
-		for (index in lengthPaths){
 		
-		property.innerHTML+="Длина реза "+lengthPaths[index].pathLength.toFixed(2)+" mm <br>мощность "+lengthPaths[index].power/10+" %<br>скорость подачи "+lengthPaths[index].speed+" mm/min<br>время "+((lengthPaths[index].pathLength*60)/lengthPaths[index].speed).toFixed(2)+" sec<br><br>";
+		for (index in lengthPaths){
+			property.innerHTML+="Длина реза "+lengthPaths[index].pathLength.toFixed(2)+" mm <br>мощность "+lengthPaths[index].power/10+" %<br>скорость подачи "+lengthPaths[index].speed+" mm/min<br>время "+((lengthPaths[index].pathLength*60)/lengthPaths[index].speed).toFixed(2)+" sec<br><br>";
 		}
+		
 		var allTime=0;
 		for (index in lengthPaths){
-		allTime=parseFloat(allTime)+parseFloat(parseFloat(lengthPaths[index].pathLength*60)/parseFloat(lengthPaths[index].speed));
+			allTime=parseFloat(allTime)+parseFloat(parseFloat(lengthPaths[index].pathLength*60)/parseFloat(lengthPaths[index].speed));
 		}
 		property.innerHTML+="Общее время реза "+allTime.toFixed(2)+" sec<br>";
 		property.innerHTML+="</p>";
 		
 		property.style.display="block";
-		//getPathListUniq(orig);
+
 	  };
 };
 	
@@ -181,9 +182,7 @@ function ShowLengthSpecPath(shape){
 			}
 		}
 	}
-
-//	console.log(" длина ",len);
-	return len;
+		return len;
 	};
 
 
@@ -201,9 +200,7 @@ function ShowLengthSpecPath(shape){
 				};
 			}
 		}
-//	console.log(len);
-	return len;
-	
+		return len;
 	};
 	
 	function verifyPathToEnterArray (path, arr){
@@ -216,72 +213,7 @@ function ShowLengthSpecPath(shape){
 		}
 		return false;
 	};
-	
 
-/*
-		
-	<h1>Fetch starting point</h1>
- 
-    <form>
-      <label for="verse-choose">Choose a verse</label>
-      <select id="verse-choose" name="verse-choose">
-        <option>Verse 1</option>
-        <option>Verse 2</option>
-        <option>Verse 3</option>
-        <option>Verse 4</option>
-      </select>
-    </form>
-	
-
-    <h2>The Conqueror Worm, <em>Edgar Allen Poe, 1843</em></h2>
-
-    <pre>
-
-    </pre>
- 
-
-
-
-	var verseChoose = document.querySelector('select');
-	var poemDisplay = document.querySelector('pre');
-	
-	verseChoose.onchange = function() {
-		var verse = verseChoose.value;
-		updateDisplay(verse);
-	};
-	
-	function updateDisplay(verse) {
-		
-		verse = verse.replace(" ", "");
-		verse = verse.toLowerCase();
-		var url = 'files/'+verse + '.txt';
-	
-	//	var request = new XMLHttpRequest();
-	
-	//	request.open('GET', url);
-	//	request.responseType = 'text';
-		
-	//	request.onload = function() {
-	//		poemDisplay.textContent = request.response;
-	//	};
-		
-	//	request.send();
-		
-		
-		fetch(url).then(function(response) {
-			response.text().then(function(text) {
-				poemDisplay.textContent = text;
-				});
-			});
-		
-		
-	};
-	
-	updateDisplay('Verse 1');
-	verseChoose.value = 'Verse 1';
-*/
-	
-//	canvasDisplay();
     </script>
 	
   </body>
