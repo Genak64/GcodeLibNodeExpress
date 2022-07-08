@@ -2,6 +2,7 @@ const parser = require('../js/ParserGcodeCadr.js');
 const border = require('../js/updateBorderShape.js');
 const startEnd = require('../js/updateStartEndPointShape.js');
 const pathLen = require('../js/addPathLength.js');
+const idleFeed = require('../js/IdleFeedShape.js');
 
 	var minX=1;
 	var minY=1;
@@ -78,10 +79,15 @@ module.exports.getShape = function (items){
 	
 	//added to paths start and end points
 	shape=startEnd.addStartEndPoint(shape);
+	//added idle feed to shape
+	shape=idleFeed.addIdleFeed(shape);
+	
 	//added border to shape
 	shape=border.updateBorderShape(shape);
-	
+	//added length paths to shape
 	shape=pathLen.addLengthPath(shape);
+	
+	//shape=idle.addIdleFeed(shape);
 	
 	return shape;
 }

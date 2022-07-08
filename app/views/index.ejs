@@ -115,11 +115,14 @@ function uploadSuccess(event) {
 	  
 //	  alert("файл загружен")
 	  
+//	  console.log(xhr.responseText);
+	  
 	  var orig=JSON.parse(xhr.responseText);
 //	  console.log(orig);
 		//	console.log(updateBorderShape(orig));
 		//	oksp=transformShape.dublicate(orig,2,2,10);
 		//	drawing.setView(1000,800);
+		console.log("shape- ",orig[0].idleFeed);
 		console.log(orig);
 			drawing.paint(updateBorderShape(orig),'canv');
 			canvas.style.display="block";
@@ -142,7 +145,12 @@ var lengthPaths=ShowLengthSpecPath(orig);
 		for (index in lengthPaths){
 			allTime=parseFloat(allTime)+parseFloat(parseFloat(lengthPaths[index].pathLength*60)/parseFloat(lengthPaths[index].speed));
 		}
-		property.innerHTML+="Общее время реза "+allTime.toFixed(2)+" sec<br>";
+		var idleTime=orig[0].idleFeed*60/10000;
+		var allTimeWithIdle=allTime+idleTime;
+		
+		property.innerHTML+="Холостой ход "+orig[0].idleFeed+" mm<br>";
+		property.innerHTML+="Общее время реза "+allTimeWithIdle.toFixed(2)+" sec<br>";
+		
 		property.innerHTML+="</p>";
 		
 		property.style.display="block";
