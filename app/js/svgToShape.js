@@ -48,12 +48,20 @@ function svgFileRead(){
 			if (svgPathes.children[p].tagName=="path"){
 				
 				parser.parse(svgPathes.children[p].properties.d);
-			}
+				if (parser.receiver.current==null) {
+				console.log(parser.receiver.curveshapes[0].points);
+				}
+				
+				if (parser.receiver.current!=null) {
+				console.log(parser.receiver.current.points);
+				}
+			} 
 			
 		}
 		
 	//	parser.parse(svgPathes.children[0].properties.d);
-		console.log(parser);
+//		console.log(parser.receiver);
+//		console.log(outlin.current.points);
 	
 	
 //	console.log(outlin);
