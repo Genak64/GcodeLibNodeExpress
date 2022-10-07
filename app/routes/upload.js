@@ -27,11 +27,15 @@ router.post("/upload", upload.single("filedata"), function (req, res, next) {
     else {
 //		res.send("Файл загружен");
 
+
 	var data;
 	fs.readFile('uploads/'+filedata.filename, 'utf8', (err, data) => {
 	  if (err) throw err;
-		var gcode=data.split('\r\n');
-	  res.send(JSON.stringify(sp.getShape(gcode)));
+	  
+	var gcode=data.split('\r\n');
+	var shape=sp.getShape(gcode);
+		shape[0].fname=filedata.filename;
+	  res.send(JSON.stringify(shape));
 	});
 	
 	

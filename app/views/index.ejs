@@ -41,7 +41,11 @@
 				<div class="col align-self-center">
 					<div id="property" class="p-2 border bg-light"></div>
 				</div>
-			</div>		
+		</div>	
+		<div class="row p-3">
+		<button id="inCollection" type="button" class="btn btn-primary" onclick="addInCollection()" >Добавить в коллекцию</button>
+		
+		</div>
 	</div>
 	
 	<br>
@@ -82,6 +86,9 @@ var canvas = document.querySelector('#canv');
 
 var property = document.querySelector('#property');
 	property.style.display="none";
+
+var inCollection = document.querySelector('#inCollection');
+	inCollection.style.display="none";
 	
 var file = document.querySelector('#file');
 var upload = document.querySelector('#upload');
@@ -112,7 +119,7 @@ function uploadSuccess(event) {
   if (xhr.status == 200) {
       console.log("Успех");
 //	  console.log(xhr.responseText);
-	  
+	 
 //	  alert("файл загружен")
 	  
 //	  console.log(xhr.responseText);
@@ -132,7 +139,7 @@ function uploadSuccess(event) {
 		//	drawing.paint(orig,'canv');
 		
 		ShowLengthAllPath(orig);
-var lengthPaths=ShowLengthSpecPath(orig);
+		var lengthPaths=ShowLengthSpecPath(orig);
 		
 		property.innerHTML="<p>Общая длина реза: "+ShowLengthAllPath(orig).toFixed(2)+" mm</p>";
 		property.innerHTML+="<p>";
@@ -155,6 +162,8 @@ var lengthPaths=ShowLengthSpecPath(orig);
 		
 		property.style.display="block";
 
+		inCollection.style.display="block";
+		
 	  };
 };
 	
@@ -222,6 +231,12 @@ function ShowLengthSpecPath(shape){
 		return false;
 	};
 
+function addInCollection (){
+
+
+	inCollection.style.display="none";
+}	
+	
     </script>
 	
   </body>
