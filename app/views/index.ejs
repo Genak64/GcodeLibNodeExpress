@@ -93,7 +93,7 @@ var inCollection = document.querySelector('#inCollection');
 var file = document.querySelector('#file');
 var upload = document.querySelector('#upload');
 var xhr = new XMLHttpRequest();
- 
+var fileNameCollection; 
  
 // Нажмите, чтобы загрузить
 function uploadFile(file) {
@@ -134,6 +134,7 @@ function uploadSuccess(event) {
 			drawing.paint(updateBorderShape(orig),'canv');
 			canvas.style.display="block";
 			
+			fileNameCollection=orig[0].fname;
 			
 			
 		//	drawing.paint(orig,'canv');
@@ -232,7 +233,11 @@ function ShowLengthSpecPath(shape){
 	};
 
 function addInCollection (){
-
+	var xhr = new XMLHttpRequest();
+	xhr.open('get', '/collection/add?fname='+fileNameCollection, true);
+	xhr.send();
+	
+	console.log(fileNameCollection);
 
 	inCollection.style.display="none";
 }	
