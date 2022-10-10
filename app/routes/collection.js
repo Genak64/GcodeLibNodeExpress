@@ -31,7 +31,12 @@ router.get('/add', function(req,res,next){
 		if (err) throw err;
 		console.log('source.txt was copied to destination.txt');
 	});
-	
+	/*
+	fs.rm('./uploads/', (err)=>{
+		if (err) throw err;
+		console.log('delete all');
+	});
+	*/
 	
 	res.sendStatus(200);
 });
