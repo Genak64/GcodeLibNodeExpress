@@ -6,16 +6,23 @@ const library = require('js-svg-path');
 
 var sp = require('../js/svgToShape.js');
 
-/* GET home page. */
+/* GET collection page. */
 router.get('/', function(req, res, next) {
 	
-	sp.svgpr();
+	//sp.svgpr();
 	
 	
-  res.render('collection', { title: 'G-code viewer' });
+	fs.readdir('./collection/',(err,files)=>{
+		if (err) throw err;
+		console.log(files);
+		
+		res.render('collection', { title: 'G-code viewer',itemsVisible: true, items: files });
+	});
+	
+  //res.render('collection', { title: 'G-code viewer' });
 });
 
-
+/* Add item to collection */
 router.get('/add', function(req,res,next){
 	var fname = req.query.fname;
 	
