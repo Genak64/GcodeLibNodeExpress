@@ -15,8 +15,29 @@ router.get('/', function(req, res, next) {
 	fs.readdir('./collection/',(err,files)=>{
 		if (err) throw err;
 		console.log(files);
+	
+		var listFiles = [];
+		var listNames = new Array (files.length);
 		
-		res.render('collection', { title: 'G-code viewer',itemsVisible: true, items: files });
+		//var fileInfo;
+		
+		for (var i=0; i<files.length; i+=2){
+			var fileInfo;
+			fs.readFile('./collection/'+files[i+1], 'utf8', (err, data) => {
+				if (err) throw err;
+				fileInfo = JSON.parse(data);
+				listNames[i]='hghg';//fileInfo.originalname;
+				
+				
+			});
+			
+			console.log(fileInfo);
+		//	listNames.push(fileInfo.originalname);
+		//	console.log(listNames);
+		//	res.render('collection', { title: 'G-code viewer',itemsVisible: true, items: listNames });
+		}
+		console.log('hjhjhj'+listNames);
+		res.render('collection', { title: 'G-code viewer',itemsVisible: true, items: listNames });
 	});
 	
   //res.render('collection', { title: 'G-code viewer' });
