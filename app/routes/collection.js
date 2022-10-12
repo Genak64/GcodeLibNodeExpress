@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 	
 	fs.readdir('./collection/',(err,files)=>{
 		if (err) throw err;
-		console.log(files);
+//		console.log(files);
 	
 		var listFiles = [];
 		var listNames = [];
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
 			listNames.push(fileInfo.originalname);
 			listFiles.push(files[i]);
 		}
-		console.log(listFiles);
+//		console.log(listFiles);
 		res.render('collection', { title: 'G-code viewer',itemsVisible: true, items: listNames, files: listFiles });
 	});
 
@@ -37,17 +37,17 @@ router.get('/', function(req, res, next) {
 router.get('/add', function(req,res,next){
 	var fname = req.query.fname;
 	
-	console.log("rout add: "+fname);
+//	console.log("rout add: "+fname);
 
 
 	fs.rename('./uploads/'+fname, './collection/'+fname, (err)=>{
 		if (err) throw err;
-		console.log('source.txt was copied to destination.txt');
+//		console.log('source.txt was copied to destination.txt');
 	}); 
 	
 	fs.rename('./uploads/'+fname+'.JSON', './collection/'+fname+'.JSON', (err)=>{
 		if (err) throw err;
-		console.log('source.txt was copied to destination.txt');
+//		console.log('source.txt was copied to destination.txt');
 	});
 	/*
 	fs.rm('./uploads/', (err)=>{
@@ -63,7 +63,7 @@ router.get('/add', function(req,res,next){
 router.get('/download', function(req,res,next){
 	var name = req.query.name;
 	
-	console.log("rout download: "+name);
+//	console.log("rout download: "+name);
 	
 	fs.readFile('./collection/'+name, 'utf8',(err,data)=>{
 		

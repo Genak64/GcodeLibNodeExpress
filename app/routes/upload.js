@@ -14,8 +14,8 @@ router.post("/upload", upload.single("filedata"), function (req, res, next) {
    
     let filedata = req.file;
  
-    console.log(filedata);
-	console.log(filedata.filename);
+//  console.log(filedata);
+//	console.log(filedata.filename);
 	
 	
 	
@@ -41,7 +41,7 @@ router.post("/upload", upload.single("filedata"), function (req, res, next) {
 	
 	fs.appendFile('uploads/'+filedata.filename+'.JSON', JSON.stringify(filedata), 'utf8',(err) => {
 		if (err) throw err;
-		console.log('The "filedata" was appended to file!');
+//		console.log('The "filedata" was appended to file!');
 	});
 	
 	}
