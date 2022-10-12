@@ -23,7 +23,7 @@
         <h3>Программы</h3>
         <ul>
             <% for(var i=0; i<items.length;i++) {%>
-                <li><%=items[i] %></li>
+                <li><a download="<%=items[i] %>.nc" href="collection/download?name=<%=files[i] %>" ><%=items[i] %></a></li>
             <%} %>
         </ul>
     <% }else {%>

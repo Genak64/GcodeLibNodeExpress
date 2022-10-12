@@ -17,31 +17,21 @@ router.get('/', function(req, res, next) {
 		console.log(files);
 	
 		var listFiles = [];
-		var listNames = new Array (files.length);
+		var listNames = [];
 		
-		//var fileInfo;
+		var fileInfo;
 		
 		for (var i=0; i<files.length; i+=2){
-			var fileInfo;
-			fs.readFile('./collection/'+files[i+1], 'utf8', (err, data) => {
-				if (err) throw err;
-				fileInfo = JSON.parse(data);
-				listNames[i]='hghg';//fileInfo.originalname;
-				
-				
-			});
-			
-			console.log(fileInfo);
-		//	listNames.push(fileInfo.originalname);
-		//	console.log(listNames);
-		//	res.render('collection', { title: 'G-code viewer',itemsVisible: true, items: listNames });
+			fileInfo = JSON.parse(fs.readFileSync('./collection/'+files[i+1], 'utf8'));
+			listNames.push(fileInfo.originalname);
+			listFiles.push(files[i]);
 		}
-		console.log('hjhjhj'+listNames);
-		res.render('collection', { title: 'G-code viewer',itemsVisible: true, items: listNames });
+		console.log(listFiles);
+		res.render('collection', { title: 'G-code viewer',itemsVisible: true, items: listNames, files: listFiles });
 	});
-	
-  //res.render('collection', { title: 'G-code viewer' });
+
 });
+
 
 /* Add item to collection */
 router.get('/add', function(req,res,next){
@@ -68,5 +58,19 @@ router.get('/add', function(req,res,next){
 	
 	res.sendStatus(200);
 });
+
+/* download item from collection */
+router.get('/download', function(req,res,next){
+	var name = req.query.name;
+	
+	console.log("rout download: "+name);
+	
+	fs.readFile('./collection/'+name, 'utf8',(err,data)=>{
+		
+	
+	res.send(data);
+	});
+});
+
 
 module.exports = router;
